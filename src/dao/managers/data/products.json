@@ -1,0 +1,68 @@
+[
+  {
+    "id": "89b2c0e9-982a-458d-92f7-640ad0eb492e",
+    "title": "Producto 02",
+    "description": "Este es el Producto 02",
+    "price": 2,
+    "thumbnail": [],
+    "code": "Code 02",
+    "stock": 2,
+    "status": true,
+    "category": "Productos"
+  },
+  {
+    "id": "e38abbb6-9599-4230-a622-51739c7a2c7c",
+    "title": "Producto 03",
+    "description": "Este es otra descripcion del Producto 03",
+    "price": 7,
+    "thumbnail": [],
+    "code": "Code 03",
+    "stock": 7,
+    "status": true,
+    "category": "Productos"
+  },
+  {
+    "id": "9a6ae02a-159f-4049-ab40-f297ed7c8de3",
+    "title": "Producto 04",
+    "description": "Este es el Producto 04",
+    "price": 4,
+    "thumbnail": [],
+    "code": "Code 04",
+    "stock": 4,
+    "status": true,
+    "category": "Productos"
+  },
+  {
+    "id": "b76f5ae5-8d02-498b-b759-bd7944b799b6",
+    "title": "Producto 07",
+    "description": "Este es la nueva descripcion del Producto 07",
+    "price": 7,
+    "thumbnail": [],
+    "code": "Code 07",
+    "stock": 7,
+    "status": true,
+    "category": "Productos"
+  },
+  {
+    "id": "c37274e2-e7eb-48a6-baa4-2220268c8038",
+    "title": "Producto 08",
+    "description": "Este es la descripcion del Producto 08",
+    "price": 8,
+    "thumbnail": [],
+    "code": "Code 08",
+    "stock": 8,
+    "status": true,
+    "category": "Productos"
+  },
+  {
+    "id": "9bfa72cf-dfb6-45a5-8281-bbb384c5d0b7",
+    "title": "Producto 01",
+    "description": "Este es la descripcion del Producto 01",
+    "price": 1,
+    "thumbnail": [],
+    "code": "Code 01",
+    "stock": 1,
+    "status": true,
+    "category": "Productos"
+  }
+]
