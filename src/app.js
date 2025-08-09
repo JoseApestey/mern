@@ -1,6 +1,6 @@
-//inicializar config del backend - comando: npm run dev para iniciar y guardar servidor
+
 import express from "express";
-import mongoose from "mongoose";
+
 import morgan from "morgan";
 import passport from "passport";
 import { authRouter } from "./Router/auth.router.js";
