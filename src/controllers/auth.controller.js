@@ -14,14 +14,14 @@ export class AuthController {
 
   static async login(req, res) {
     try {
-      // Validación y conversión explícita de los campos
+     
       const { email, password } = req.body;
       
       if (!email || !password) {
         throw new Error("Email and password are required");
       }
 
-      // Conversión forzada a string para evitar problemas de casteo
+      
       const emailString = String(email).trim();
       const passwordString = String(password);
 
