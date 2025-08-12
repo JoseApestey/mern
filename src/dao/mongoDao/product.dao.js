@@ -21,6 +21,10 @@ class ProductDao{
         return await productModel.findByIdAndDelete(id)
 
     }
+
+    async getByCode(code) {
+    return await productModel.findOne({ code: String(code) });
+}
 }
 
-export const productDao= new ProductDao()
+export const productDao = new ProductDao(); 

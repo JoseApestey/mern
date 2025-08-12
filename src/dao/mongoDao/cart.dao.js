@@ -1,32 +1,53 @@
-import { cartModel } from "../models/cart.model.js"
+import { cartModel } from "../models/cart.model.js";
 
 class CartDao {
     async getAll() {
-        return await cartModel.find()
+        return await cartModel.find();
     }
 
     async getById(id) {
-        return await cartModel.findById(id).populate('products.product').exec()
+        return await cartModel.findById(id).populate('products.product').exec();
+    }
+
+    async getCartById(id, options = {}) {
+        return await cartModel
+            .findById(id)
+            .populate('products.product')
+            .session(options.session || null)
+            .exec();
     }
 
     async create(data) {
-        return await cartModel.create(data)
+        return await cartModel.create(data);
     }
 
     async update(id, data) {
-        return await cartModel.findByIdAndUpdate(id, data, { new: true }).populate('products.product').exec()
+        return await cartModel.findByIdAndUpdate(id, data, { new: true }).populate('products.product').exec();
+    }
+
+    async updateCartProducts(id, products, options = {}) {
+        return await cartModel.findByIdAndUpdate(
+            id,
+            { products },
+            { new: true, session: options.session }
+        ).populate('products.product').exec();
     }
 
     async deleteById(id) {
-        return await cartModel.deleteById(id);
-       }
+        return await cartModel.findByIdAndDelete(id);
+    }
 
     async deleteProductInCart(cid, pid) {
-        const cart = await cartModel.findById(cid)
- 
-        const productFilter = cart.products.filter(product  => product.product.toString() !== pid)
-        return await cartModel.findByIdAndUpdate(cid, { products: productFilter}, {new: true})
+        const cart = await cartModel.findById(cid);
+        const productFilter = cart.products.filter(
+            product => product.product.toString() !== pid
+        );
+        return await cartModel.findByIdAndUpdate(
+            cid,
+            { products: productFilter },
+            { new: true }
+        );
     }
 }
 
-export const cartDao = new CartDao()
+export const cartDao = new CartDao();

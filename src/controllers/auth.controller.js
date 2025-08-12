@@ -1,27 +1,62 @@
-import { generateToken } from "../utils/jwt.js";
+import { UserDTO } from "../dto/user.dto.js";
+import { userService } from "../services/userService.js";
 
 export class AuthController {
-  static async login(req, res) {
-    console.log(req.user);
-
-    const payload = {
-      email: req.user.email,
-      role: req.user.role,
-    };
-
-    const token = generateToken(payload);
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 2,
-    });
+  static async register(req, res) {
+    try {
+      const newUser = await userService.register(req.body);
+      const userDTO = new UserDTO(newUser);
+      res.status(201).json({ status: "success", payload: userDTO });
+    } catch (error) {
+      res.status(400).json({ status: "error", message: error.message });
+    }
   }
 
-  static async register(req, res) {
-    res.json(req.user);
+  static async login(req, res) {
+    try {
+      // Validación y conversión explícita de los campos
+      const { email, password } = req.body;
+      
+      if (!email || !password) {
+        throw new Error("Email and password are required");
+      }
+
+      // Conversión forzada a string para evitar problemas de casteo
+      const emailString = String(email).trim();
+      const passwordString = String(password);
+
+      const { token, user } = await userService.login({
+        email: emailString,
+        password: passwordString
+      });
+
+      const userDTO = new UserDTO(user);
+      
+      res.cookie("token", token, { 
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict"
+      }).json({
+        status: "success",
+        payload: { user: userDTO, token },
+      });
+    } catch (error) {
+      res.status(401).json({ 
+        status: "error", 
+        message: error.message || "Authentication failed" 
+      });
+    }
   }
 
   static async current(req, res) {
-    res.json(req.user);
+    try {
+      const userDTO = new UserDTO(req.user);
+      res.json({ status: "success", payload: userDTO });
+    } catch (error) {
+      res.status(500).json({ 
+        status: "error", 
+        message: error.message || "Failed to get current user" 
+      });
+    }
   }
 }
